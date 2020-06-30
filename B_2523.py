@@ -1,3 +1,8 @@
+# Author: Kim YeongHwa
+# Date: 2020-06-30
+# Title: 10996
+# Language: Python 3
+
 a = int(input())
 max = a*2
 
