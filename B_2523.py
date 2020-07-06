@@ -1,6 +1,6 @@
 # Author: Kim YeongHwa
 # Date: 2020-06-30
-# Title: 10996
+# Title: 2523
 # Language: Python 3
 
 a = int(input())
