@@ -1,7 +1,9 @@
-# Author: Kim YeongHwa
-# Date: 2020-06-30
-# Title: 2446
-# Language: Python 3
+"""
+Author: Kim YeongHwa
+Date: 2020-06-30
+Title: 2446
+Language: Python 3
+"""
 
 input = int(input())
 max = input*2-1
