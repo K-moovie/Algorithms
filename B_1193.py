@@ -11,32 +11,24 @@ sum = 0
 copy = input
 
 while True:
-    if input <= sum:
-        break
-    else:
+    if input > sum:
         round += 1
         sum += round
+    else:
+        sum -= round
+        break
 
-a = (sum - round)
+total = round + 1
+#분자
+numerator = 0
+#분모
+denominator = 0
 
-print("round: " + str(round))
-print("sum: " + str(sum))
-
-
-print(str((round + 1) % a) + "/",  end="")
-print(str((round + 1) - a) + "/",  end="")
-
-""""
-mod = input % sum
-
-print("round: " + str(round))
-print("sum: " + str(sum))
-print("mod: " + str(mod))
-
-if round % 2 == 1:
-    print(str(round - mod + 1) + "/", end="")
-    print(round - (round - mod))
-
+if round % 2 == 0:
+    numerator = input - sum
+    denominator = total - numerator
 else:
-    print(str(round - (round - mod)) + "/", end="")
-    print(round - mod + 1)"""
+    denominator = input - sum
+    numerator = total - denominator
+
+print(str(numerator) + "/" + str(denominator))
