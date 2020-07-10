@@ -14,6 +14,15 @@ def bubble_sort(array):
                 array[j] = temp
     return array
 
+def insert_sort(array):
+    for i in range(1, len(array)):
+        for j in range(0, len(array)):
+            if array[i] <= array[j]:
+                temp = array[j]
+                array[j] = array[i]
+                array[i] = temp
+    return array
+
 
 test_case = int(input())
 array = []
@@ -21,6 +30,6 @@ array = []
 for i in range(0, test_case):
     array.append(int(input()))
 
-array = bubble_sort(array)
+array = insert_sort(array)
 for i in range(0, test_case):
     print(array[i])
