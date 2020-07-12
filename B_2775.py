@@ -6,16 +6,13 @@ Language: Python 3
 """
 
 def get_count(floor, room_num):
-    sequence = floor
-    sum = 1
-    for i in range(0, room_num):
-
-        print("sum:"+ str(sum))
-        print("수열:" + str(sequence))
-        sum += sequence
-        sequence += 1
-    return sum
-
+    sum = 0
+    if floor == 0:
+        return room_num
+    else:
+        for i in range(1, room_num + 1):
+            sum += get_count(floor - 1, i)
+        return sum
 
 test_case = int(input())
 result = []
