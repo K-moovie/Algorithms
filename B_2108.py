@@ -22,10 +22,12 @@ def get_mode(array, N):
         for i in range(-4000, 4001):
             if array[i] == max_val:
                 new_array.append(i)
-        #print(new_array)
         new_array.remove(min(new_array))
         return min(new_array)
-    return array.index(max_val)
+    if array.index(max_val) > 4000:
+        return array.index(max_val) - 8001
+    else:
+        return array.index(max_val)
 
 def get_gap(array, N):
     new_array = []
