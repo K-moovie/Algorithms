@@ -17,12 +17,12 @@ def dfs(depth):
 
         # i번째 탐색하므로 True
         visited[i] = True
-        # arr.append(num_list[i])
         arr[depth] = num_list[i]
         # 현재의 i를 기준으로 가지치기 시작
+        # # print("depth: " + str(depth))
+        # print(arr[depth])
         dfs(depth + 1)
         visited[i] = False
-
 
 N, M = map(int, input().split())
 
