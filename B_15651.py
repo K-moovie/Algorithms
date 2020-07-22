@@ -5,5 +5,20 @@ Title: 15651
 Language: Python 3
 """
 
-def test():
-    print(test);
+def dfs(depth):
+    if depth == M:
+        print(*arr)
+        return
+
+    for i in range(N):
+        #visited[i] = True
+        arr[depth] = num_list[i]
+        dfs(depth + 1)
+        #visited[i] = False
+
+N, M = map(int, input().split())
+num_list = range(1, N + 1)
+visited = [False] * N
+arr = [0] * M
+
+dfs(0)
