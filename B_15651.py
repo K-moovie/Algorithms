@@ -5,4 +5,5 @@ Title: 15651
 Language: Python 3
 """
 
-def 
+def test():
+    print(test)
