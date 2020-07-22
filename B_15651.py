@@ -6,4 +6,4 @@ Language: Python 3
 """
 
 def test():
-    print(test)
+    print(test);
