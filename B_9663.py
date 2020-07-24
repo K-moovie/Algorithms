@@ -16,6 +16,16 @@ def is_possible(i, j):
                 visited[a][b] = False
     print(visited)
 
+
+def dfs(depth, start):
+    if depth == M:
+        print(*arr)
+        return
+
+    for i in range(start, N):
+        arr[depth] = num_list[i]
+        dfs(depth + 1, i)
+
 N = int(input())
 visited = [[True] * N for _ in range((int(N)))]
 
