@@ -1,17 +1,60 @@
-# 라이브러리 불러오기
-import requests
-from bs4 import BeautifulSoup
+import copy
 
-# 검색 키워드
-search_word = '삼성전자'
 
-# 해당 url의 html문서를 soup 객체로 저장
-url = f'https://m.search.naver.com/search.naver?where=m_news&sm=mtb_jum&query={search_word}'
-req = requests.get(url)
-html = req.text
-soup = BeautifulSoup(html, 'html.parser')
-search_result = soup.select_one('#news_result_list')
-news_links = search_result.select('.bx > .news_wrap > a')
+count = 0
 
-for i in news_links:
-    print(i.get_text())
+N = int(input())
+visited = [False for _ in range(N)]
+visited_queue = []
+
+
+
+def is_possible(i):
+    print("isPossible: ", end="")
+    print(visited_queue)
+    visited_queue.append(copy.deepcopy(visited))
+    print("isPossible: " , end="")
+    print(visited_queue)
+    visited[i] = True
+
+
+def dfs(depth):
+    global count
+    global visited
+    if depth == N:
+        count += 1
+        print("count: " + str(count))
+        return
+
+    for i in range(N):
+        if visited[i]:
+            continue
+
+        print(i)
+        is_possible(i)
+
+
+        dfs(depth + 1)
+        visited = copy.deepcopy(visited_queue.pop())
+        print(visited)
+
+
+dfs(0)
+print(count)
+
+
+# a = [True]
+# def b():
+#     a[0] = False
+#     print("B: ", end="")
+#     print(a)
+#
+# def c():
+#     b()
+#     print(a)
+#
+# print(a)
+# c()
+#
+# a.pop()
+# a.pop()
