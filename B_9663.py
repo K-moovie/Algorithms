@@ -40,7 +40,7 @@ def dfs(depth, x, y):
             dfs(depth, i, j + 1)
             visited = copy.deepcopy(visited_queue.pop())
             print(visited)
-
+    # check point: 탐색이 불완전함
 
 count = 0
 
