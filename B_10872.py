@@ -5,6 +5,7 @@ Title: 10872
 Language: Python 3
 """
 
+
 def factorial(N):
     if N == 0:
         return 1
