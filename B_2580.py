@@ -5,41 +5,44 @@ Title: 2580
 Language: Python 3
 """
 
-def make_row_candidate(row, col):
+
+def make_candidate(row, col):
     candidate = []
-    for i in range(MAX):
+    for i in range(1, MAX + 1):
         if i not in sudoku_list[row]:
             candidate.append(i)
+    for i in range(MAX):
+        if sudoku_list[i][col] in candidate:
+            candidate.remove(sudoku_list[i][col])
+    row_range = range((row // 3) * 3, ((row // 3) * 3) + 3)
+    col_range = range((col // 3) * 3, ((col // 3) * 3) + 3)
+    for i in row_range:
+        for j in col_range:
+            if sudoku_list[i][j] in candidate:
+                candidate.remove(sudoku_list[i][j])
 
-        if i != sudoku_list[i][col]:
-            candidate.append(i)
     return candidate
 
-def make_col_candidate(col):
-    col_candidate = []
-    for i in range(MAX):
-        if i != sudoku_list[i][col]:
-            col_candidate.append(i)
-    return col_candidate
 
+def sudoku(depth):
+    global flag
 
-def sudoku(depth, i, j):
-    if depth == 3:
+    if flag:
         return
 
-    elif depth == 0:
-        row_candidate = make_row_candidate(i)
-        for k in range(len(row_candidate)):
-            sudoku_list[i][j] = row_candidate[k]
-            sudoku(depth + 1, i, j)
-    elif depth == 1:
-        col_candidate = make_col_candidate(j)
-        for k in range(len(col_candidate)):
-            sudoku_list[i][j] = col_candidate[k]
-            sudoku(depth + 1, i, j)
+    if depth == len(zeros):
+        for i in sudoku_list:
+            print(*i)
+        flag = True
+        return
 
-
-
+    else:
+        (i, j) = zeros[depth]
+        candidate = make_candidate(i, j)
+        for k in candidate:
+            sudoku_list[i][j] = k
+            sudoku(depth + 1)
+            sudoku_list[i][j] = 0
 
 
 # 변수 선언
@@ -50,11 +53,10 @@ sudoku_list = []
 for _ in range(MAX):
     sudoku_list.append(list(map(int, input().split())))
 
-for i in range(1, MAX):
-    for j in range(MAX):
-        if sudoku_list[i][j] == 0:
-            sudoku(0, i, j)
-print(sudoku_list)
+# 0인 원소 좌표 저장
+zeros = [(i, j) for i in range(MAX) for j in range(MAX) if sudoku_list[i][j] == 0]
+flag = False
+sudoku(0)
 
 # test case:
 # 0 2 0 9 0 5 0 0 0
