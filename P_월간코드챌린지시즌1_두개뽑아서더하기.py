@@ -1,3 +1,10 @@
+"""
+Author: Kim YeongHwa
+Date: 2021-02-27
+Title: Programmers/월간 코드 챌린지 시즌1/두개 뽑아서 더하기
+Language: Python 3
+"""
+
 def solution(numbers):
     answer = []
     for i in range(len(numbers)):
