@@ -22,6 +22,7 @@ def sort(numbers):
         numbers[i], numbers[min_index] = numbers[min_index], numbers[i]
     return numbers
 
-numbers = [2,1, 3,4,1]
+numbers = [2, 1, 3, 4, 1]
 result = solution(numbers)
 print(result)
+# result: 3, 4, 5, 6, 7
