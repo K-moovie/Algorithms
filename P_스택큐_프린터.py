@@ -1,5 +1,9 @@
-from collections import deque
-
+"""
+Author: Kim YeongHwa
+Date: 2021-03-03
+Title: Programmers/스택/큐/프린터
+Language: Python 3
+"""
 
 def solution(priorities, location):
     answer = 0
