@@ -1,71 +1,25 @@
-# from queue import PriorityQueue
-#
-#
-# def solution(priorities, location):
-#     answer = 0
-#     que = PriorityQueue(maxsize=len(priorities))
-#     current_index = 0
-#     print_array = []
-#     pri_len = len(priorities)
-#
-#     while True:
-#         print(location)
-#         item = priorities.pop(0)
-#         if len(print_array) == pri_len - 1:
-#             print_array.append(item)
-#             break
-#
-#         if item < max(priorities):
-#             priorities.append(item)
-#             if location == 0:
-#                 location = pri_len - 1
-#             else:
-#                 location = location - 1
-#
-#         else:
-#             print_array.append(item)
-#
-#         current_index = current_index + 1
-#     answer = location + 1
-#     print(print_array)
-#     return answer
-#
-# def solution(priorities, location):
-#     answer = 0
-#     current_index = 0
-#
-#     while True:
-#         if check(priorities):
-#             break
-#
-#         item = priorities.pop(0)
-#         if item < max(priorities):
-#             priorities.append(item)
-#             if location == 0:
-#                 location = len(priorities) - 1
-#             else:
-#                 location = location - 1
-#
-#         else:
-#             priorities.insert(0, item)
-#
-#         current_index = current_index + 1
-#     answer = location + 1
-#     return answer
-#
-#
-# def check(priorities):
-#     print(priorities)
-#     item = priorities[0]
-#     for priority in priorities:
-#         if item < priority:
-#             return False
-#         item = priority
-#     return True
-#
-# solution([1, 2, 3, 2], 0 )
+from itertools import cycle
 
-queue = [(1, 2), (2, 2)]
 
-while queue:
-    print(queue.index((2,2)))
+def solution(answers):
+    answer = []
+    m_1 = cycle([1, 2, 3, 4, 5])
+    m_2 = cycle([2, 1, 2, 3, 2, 4, 2, 5])
+    m_3 = cycle([3, 3, 1, 1, 2, 2, 4, 4, 5, 5])
+    score = [0, 0, 0]
+
+    for i in range(len(answers)):
+        score[0] += [4, 2][next(m_2) == answers[i]]
+        print(score)
+        score[1] += [0, 1][next(m_2) == answers[i]]
+        score[2] += [0, 1][next(m_3) == answers[i]]
+
+    for i in range(3):
+        if score[i] == max(score):
+            answer.append(i + 1)
+
+    return answer
+
+if __name__ == '__main__':
+    answer = [1, 2, 3, 4, 7, 9]
+    result = solution(answer)
