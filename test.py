@@ -1,25 +1,24 @@
-from itertools import cycle
+import bisect
+import collections
+import itertools
 
 
-def solution(answers):
-    answer = []
-    m_1 = cycle([1, 2, 3, 4, 5])
-    m_2 = cycle([2, 1, 2, 3, 2, 4, 2, 5])
-    m_3 = cycle([3, 3, 1, 1, 2, 2, 4, 4, 5, 5])
-    score = [0, 0, 0]
 
-    for i in range(len(answers)):
-        score[0] += [4, 2][next(m_2) == answers[i]]
-        print(score)
-        score[1] += [0, 1][next(m_2) == answers[i]]
-        score[2] += [0, 1][next(m_3) == answers[i]]
+di = collections.defaultdict(lambda:20)
 
-    for i in range(3):
-        if score[i] == max(score):
-            answer.append(i + 1)
+print(di['a'])
 
-    return answer
+result = []
+for score in [33, 99, 77, 70, 89, 90, 100]:
+    pos = bisect.bisect([60, 70, 80, 90], score)  # 점수가 정렬되어 삽입될 수 있는 포지션을 반환
+    grade = 'FDCBA'[pos]
+    result.append(grade)
 
-if __name__ == '__main__':
-    answer = [1, 2, 3, 4, 7, 9]
-    result = solution(answer)
+print(list(map(''.join, itertools.combinations(result, 2))))
+l = dict(collections.Counter(result))
+print(l['F'])
+print(l)
+deque = collections.deque(result)
+print(deque.popleft())
+print(deque.pop())
+# print(result)
