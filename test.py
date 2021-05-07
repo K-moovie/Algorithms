@@ -1,24 +1,52 @@
-import bisect
-import collections
 import itertools
+import re
+import copy
 
+def solution(expression):
+    answer = 0
+    split = []
+    priorities = list()
+    temp = ''
+    p = re.compile('[*|+|-]')
+    length = len(expression) - 1
+    result = list()
+    for index, char in enumerate(expression):
+        if re.match(p, char):
+            priorities.append(char)
+            split.append(temp)
+            temp = ''
+            split.append(char)
+        else:
+            temp += char
+        if index == length:
+            split.append(temp)
+    priorities = set(priorities)
+    priorities = list(itertools.permutations(priorities, len(priorities)))
+    print(priorities)
+    for priority in priorities:
+        result.append(cal(split, priority))
+    answer = max(result)
+    return answer
 
+def cal(expr: str, priority: str):
+    expr = copy.deepcopy(expr)
+    result = 0
+    print(priority)
+    for op in priority:
+        for _ in range(expr.count(op)):
+            index = expr.index(op)
+            left = expr[index - 1]
+            right = expr[index + 1]
+            if op == '-':
+                temp = int(left) - int(right)
+            elif op == '+':
+                temp = int(left) + int(right)
+            elif op == '*':
+                temp = int(left) * int(right)
+            result = expr[index - 1] = str(temp)
+            expr.pop(index)
+            expr.pop(index)
+    return abs(int(result))
 
-di = collections.defaultdict(lambda:20)
-
-print(di['a'])
-
-result = []
-for score in [33, 99, 77, 70, 89, 90, 100]:
-    pos = bisect.bisect([60, 70, 80, 90], score)  # 점수가 정렬되어 삽입될 수 있는 포지션을 반환
-    grade = 'FDCBA'[pos]
-    result.append(grade)
-
-print(list(map(''.join, itertools.combinations(result, 2))))
-l = dict(collections.Counter(result))
-print(l['F'])
-print(l)
-deque = collections.deque(result)
-print(deque.popleft())
-print(deque.pop())
-# print(result)
+if __name__ == '__main__':
+    solution("50*6-3*2")
