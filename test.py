@@ -1,52 +1,22 @@
-import itertools
-import re
-import copy
+def longestPalindrome(s: str) -> str:
+    def expand(left: int, right: int) -> str:
+        while (left >= 0) and (right <= len(s)) and s[left] == s[right - 1]:
+            left -= 1
+            right += 1
+        return s[left + 1:right - 1]
 
-def solution(expression):
-    answer = 0
-    split = []
-    priorities = list()
-    temp = ''
-    p = re.compile('[*|+|-]')
-    length = len(expression) - 1
-    result = list()
-    for index, char in enumerate(expression):
-        if re.match(p, char):
-            priorities.append(char)
-            split.append(temp)
-            temp = ''
-            split.append(char)
-        else:
-            temp += char
-        if index == length:
-            split.append(temp)
-    priorities = set(priorities)
-    priorities = list(itertools.permutations(priorities, len(priorities)))
-    print(priorities)
-    for priority in priorities:
-        result.append(cal(split, priority))
-    answer = max(result)
-    return answer
+    if len(s) < 2 or s == s[::-1]:
+        return s
 
-def cal(expr: str, priority: str):
-    expr = copy.deepcopy(expr)
-    result = 0
-    print(priority)
-    for op in priority:
-        for _ in range(expr.count(op)):
-            index = expr.index(op)
-            left = expr[index - 1]
-            right = expr[index + 1]
-            if op == '-':
-                temp = int(left) - int(right)
-            elif op == '+':
-                temp = int(left) + int(right)
-            elif op == '*':
-                temp = int(left) * int(right)
-            result = expr[index - 1] = str(temp)
-            expr.pop(index)
-            expr.pop(index)
-    return abs(int(result))
+    result  = ''
+    for i in range(len(s) - 1):
+        result = max(result,
+                     expand(i, i + 1),
+                     expand(i, i + 2),
+                     key=len)
+    return result
+
 
 if __name__ == '__main__':
-    solution("50*6-3*2")
+    s = 'ajkfljdkasljfsakld'
+    print(longestPalindrome(s))
