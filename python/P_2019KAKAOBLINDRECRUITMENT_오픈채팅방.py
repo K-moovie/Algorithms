@@ -82,8 +82,14 @@ def solution(records):
 
 
 if __name__ == '__main__':
+
     record = ["Enter uid1234 Muzi", "Enter uid4567 Prodo", "Leave uid1234", "Enter uid1234 Prodo",
               "Change uid4567 Ryan"]
-    result = ["Prodo님이 들어왔습니다.", "Ryan님이 들어왔습니다.", "Prodo님이 나갔습니다.", "Prodo님이 들어왔습니다."]
+    expected = ["Prodo님이 들어왔습니다.", "Ryan님이 들어왔습니다.", "Prodo님이 나갔습니다.", "Prodo님이 들어왔습니다."]
+    result = solution(record)
 
-    print('Expected: {0}\nResult: {1} '.format(result, solution(record)))
+    if expected == result:
+        print("정답입니다.")
+    else:
+        print("오답입니다.")
+    print('Expected: {0}\nResult: {1} '.format(expected, result))

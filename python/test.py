@@ -1,8 +1,5 @@
-p = [[1, 1, 1, 0],
-    [1, 2, 2, 0],
-    [1, 0, 0, 8],
-    [0, 0, 0, 1],
-    [0, 0, 0, 3],
-    [0, 0, 0, 3]]
+from collections import deque
+from bisect import bisect
 
-print(p[2][3])
+bi = bisect([1, 2, 3, 9, 12, 10], 13)
+print(bi)
