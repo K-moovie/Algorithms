@@ -19,7 +19,7 @@ def solution(new_id):
 
     # 3 ..을 .으로 치환
     for char in answer:
-        answer = re.sub('\.{2}', '.', answer)
+        answer = re.sub('\.{2}', '..', answer)
     answer = "".join(answer)
 
     # 4 .가 문장의 처음이나 끝에 존재한다면 제거
