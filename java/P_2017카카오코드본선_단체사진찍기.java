@@ -35,24 +35,24 @@ Contents:
 import java.util.*;
 
 public class Solution {
-    public class Case{
-        int first;
-        int second;
+    public static class Case{
+        Character first;
+        Character second;
         Character op;
-        int distance;
+        int  distance;
 
-        public Case(int first, int second, Character op, int distance) {
+        public Case(Character first, Character second, Character op, int distance) {
             this.first = first;
             this.second = second;
             this.op = op;
             this.distance = distance;
         }
 
-        public int getFirst() {
+        public Character getFirst() {
             return first;
         }
 
-        public int getSecond() {
+        public Character getSecond() {
             return second;
         }
 
@@ -63,88 +63,82 @@ public class Solution {
         public int getDistance() {
             return distance;
         }
-
-        @Override
-        public String toString() {
-            return "Case{" +
-                    "first=" + first +
-                    ", second=" + second +
-                    ", op='" + op + '\'' +
-                    ", distance=" + distance +
-                    '}';
-        }
     }
 
-    boolean visited[];
-    Map<Character,Integer> map;
-    List<Case> cases;
-    int[] item;
-    String[] dataes;
-    int answer;
+    static List<Character> friends;
+    static List<Case> cases;
+    static String[] dataes;
+    static boolean[] visited;
+    static int[] line;
+    static int answer;
 
-
-    public int solution(String[] data, int n) {
-        dataes = data;
-        answer = 0;
-        visited = new boolean[8];
-        map = new HashMap<>();
+    public static int solution(int n, String[] data) {
+        friends = List.of('A', 'C', 'F', 'J', 'M', 'N', 'R', 'T');
         cases = new ArrayList<>();
-        item = new int[8];
-         map.put('A', 0);
-         map.put('C', 1);
-         map.put('F', 2);
-         map.put('J', 3);
-         map.put('M', 4);
-         map.put('N', 5);
-         map.put('R', 6);
-         map.put('T', 7);
+        dataes = data;
+        visited = new boolean[8];
+        line = new int[8];
+        answer = 0;
 
         for (String d: data) {
-            cases.add(new Case(map.get(d.charAt(0)), map.get(d.charAt(2)), d.charAt(3), Integer.parseInt(Character.toString(d.charAt(4)))));
+            cases.add(new Case(d.charAt(0),
+                    d.charAt(2),
+                    d.charAt(3),
+                    Character.getNumericValue(d.charAt(4))));
         }
         dfs(0);
         return answer;
     }
 
     // 모든 경우의 수를 만듦.
-    public void dfs(int depth) {
+    public static void dfs(int depth) {
         if (depth == 8) {
             if (check()){
                 answer++;
             }
             return;
         }
+
         for (int i = 0; i < visited.length; i++) {
+            // visited 배열이 false 일 때
             if (!visited[i]) {
+                // 탐색 시작
                 visited[i] = true;
-                item[depth] = i;
+                // 줄을 선 경우의 수를 기록
+                line[depth] = i;
+                // 재귀 호출
                 dfs(depth+1);
+                // 탐색 완료
                 visited[i] = false;
             }
         }
     }
 
 
-
-    public boolean check() {
+    public static boolean check() {
         for (Case c : cases) {
-            int first = c.getFirst();
-            int second = c.getSecond();
+            int first = friends.indexOf(c.getFirst());
+            int second = friends.indexOf(c.getSecond());
             Character op = c.getOp();
             int distance = c.getDistance();
-            int temp = Math.abs(item[first] - item[second]) - 1;
-            if (op == '=') {
-                if (distance != temp) {
-                    return false;
-                }
-            } else if (op == '>') {
-                if (distance >= temp) {
-                    return false;
-                }
-            } else {
-                if (distance <= temp) {
-                    return false;
-                }
+            int realDistance = Math.abs(line[first] - line[second]) - 1;
+
+            switch (op){
+                case '=':
+                    if (distance != realDistance) {
+                        return false;
+                    }
+                    break;
+                case '>':
+                    if (distance >= realDistance) {
+                        return false;
+                    }
+                    break;
+                case '<':
+                    if (distance <= realDistance) {
+                        return false;
+                    }
+                    break;
             }
         }
         return true;
