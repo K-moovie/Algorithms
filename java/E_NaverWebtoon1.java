@@ -5,6 +5,7 @@ int[] prices = new int[]{32000, 18000, 42500};
 int[] discounts = new int[]{50, 20};
 */
 
+
 public class NaverWebtoon1 {
     public static int solution(int[] prices, int[] discounts) {
         int answer = 0;
