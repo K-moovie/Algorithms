@@ -1,2 +1,2 @@
-s = "abba"
-print(s[-1])
+s = (1 << 21) - 1
+print(bin(s))
