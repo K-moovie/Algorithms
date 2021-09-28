@@ -1,2 +1,4 @@
-s = (1 << 21) - 1
-print(bin(s))
+for i in range(5):
+    if i % 2:
+        tmp = i
+    print()
