@@ -24,7 +24,40 @@ Output:
 9
 """
 import sys
+from collections import deque
 
 N, M = map(int, sys.stdin.readline().split())
-matrix = [list(map(int, input())) for _ in range(N)]
-print(matrix)
+maze = [list(map(int, input())) for _ in range(N)]
+visited = [[0 for _ in range(M)] for _ in range(N)]
+dir_x = [1, 0, -1, 0]
+dir_y = [0, 1, 0, -1]
+
+
+def bfs(x, y):
+    queue = deque()
+    queue.append((x, y))
+    visited[x][y] = 1
+    while queue:
+        cur_x, cur_y = queue.popleft()
+
+        if cur_x == N - 1 and cur_y == M - 1:
+            return visited[N -1][M-1]
+        for i in range(4):
+            go_x = cur_x + dir_x[i]
+            go_y = cur_y + dir_y[i]
+
+            if go_x < 0 or go_x > N - 1:
+                continue
+            elif go_y < 0 or go_y > M - 1:
+                continue
+            elif maze[go_x][go_y] == 0:
+                continue
+            elif visited[go_x][go_y] > 0:
+                continue
+
+            visited[go_x][go_y] = visited[cur_x][cur_y] + 1
+            queue.append((go_x, go_y))
+            # print(cur_x, cur_y, queue)
+
+
+print(bfs(0, 0))

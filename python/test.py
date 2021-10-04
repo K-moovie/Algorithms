@@ -1,4 +1,7 @@
-for i in range(5):
-    if i % 2:
-        tmp = i
-    print()
+from collections import  deque
+q  = deque()
+
+q.append(1)
+print(q)
+q.popleft()
+print(q)
