@@ -28,32 +28,37 @@ Input:
 Output:
 45
 """
-# import sys
-# N = int(sys.stdin.readline())
-# W = [list(map(int, input().split())) for _ in range(N - 1)]
-#
+import sys
 
-graph_list = {1: set([3, 4]),
-              2: set([3, 4, 5]),
-              3: set([1, 5]),
-              4: set([1]),
-              5: set([2, 6]),
-              6: set([3, 5])}
-root_node = 1
+sys.setrecursionlimit(10 ** 9)
 
-from collections import deque
+N = int(sys.stdin.readline())
+tree = [[] for _ in range(N + 1)]
+weight1 = [0 for _ in range(N + 1)]
+weight2 = [0 for _ in range(N + 1)]
 
-
-def BFS_with_adj_list(graph, root):
-    visited = []
-    queue = deque([root])
-
-    while queue:
-        n = queue.popleft()
-        if n not in visited:
-            visited.append(n)
-            queue += graph[n] - set(visited)
-    return visited
+for _ in range(N - 1):
+    parent, child, w = map(int, sys.stdin.readline().split())
+    tree[parent].append((child, w))
+    tree[child].append((parent, w))
 
 
-print(BFS_with_adj_list(graph_list, root_node))
+def dfs(current_node, start_node, weight):
+    weight[start_node] = 0
+    for node, w in tree[current_node]:
+        if weight[node] == 0:
+            weight[node] = weight[current_node] + w
+            dfs(node, start_node, weight)
+
+
+dfs(1, 1, weight1)
+
+max_index = 0
+start_node = 0
+for i in range(len(weight1)):
+    if max_index < weight1[i]:
+        max_index = weight1[i]
+        start_node = i
+
+dfs(start_node, start_node, weight2)
+print(max(weight2))
