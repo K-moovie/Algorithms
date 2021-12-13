@@ -63,39 +63,77 @@ Contents:
 
 """
 
+# def solution(n, s, a, b, fares):
+#     s -= 1
+#     a -= 1
+#     b -= 1
+#     answer = int(1e9)
+#     INF = int(1e9)
+
+#     # 2차원 배열 생성
+#     matrix = [[INF for _ in range(n) ] for _ in range(n)]
+
+#     # 0, 0과 같은 자기 자신으로 향하는 가중치는 0으로 초기화
+#     for i in range(n):
+#         matrix[i][i] = 0
+
+#     # fares에 맞게 가중치 초기화
+#     for fare in fares:
+#         i, j, w = fare[0] - 1, fare[1] - 1, fare[2]
+#         matrix[i][j] = w
+#         matrix[j][i] = w
+
+#     # 플루이드 와셜 알고리즘 사용
+#     # k는 거쳐가는 노드
+#     for k in range(n):
+#         # i는 시작 노드, j는 도착 노드
+#         for i in range(n):
+#             for j in range(n):
+#                 temp = min(matrix[i][k] + matrix[k][j], matrix[i][j])
+#                 matrix[i][j] = temp
+
+#     for i in range(n):
+#         temp = min(matrix[s][i] + matrix[i][a] + matrix[i][b], answer)
+#         answer = temp
+#     return answer
+
+
+import heapq
+
 
 def solution(n, s, a, b, fares):
-    s -= 1
-    a -= 1
-    b -= 1
-    answer = int(1e9)
     INF = int(1e9)
+    graph = [[] for _ in range(n + 1)]
 
-    # 2차원 배열 생성
-    matrix = [[INF for _ in range(n)] for _ in range(n)]
+    for i, j, w in fares:
+        graph[i].append((w, j))
+        graph[j].append((w, i))
 
-    # 0, 0과 같은 자기 자신으로 향하는 가중치는 0으로 초기화
-    for i in range(n):
-        matrix[i][i] = 0
+    def dijkstra(start):
+        distance = [INF] * (n + 1)
+        distance[start] = 0
+        heap = []
+        heapq.heappush(heap, (0, start))
+        while heap:
+            dist, now = heapq.heappop(heap)
+            if distance[now] < dist:
+                continue
 
-    # fares에 맞게 가중치 초기화
-    for fare in fares:
-        i, j, w = fare[0] - 1, fare[1] - 1, fare[2]
-        matrix[i][j] = w
-        matrix[j][i] = w
+            # k는 거쳐가는 노드, w는 가중치
+            for w, k in graph[now]:
+                next_dist = dist + w
+                if distance[k] > next_dist:
+                    distance[k] = next_dist
+                    heapq.heappush(heap, (next_dist, k))
+        return distance
 
-    # 플루이드 와셜 알고리즘 사용
-    # k는 거쳐가는 노드
-    for k in range(n):
-        # i는 시작 노드, j는 도착 노드
-        for i in range(n):
-            for j in range(n):
-                temp = min(matrix[i][k] + matrix[k][j], matrix[i][j])
-                matrix[i][j] = temp
+    matrix = [[]] + [dijkstra(i) for i in range(1, n + 1)]
 
-    for i in range(n):
+    answer = INF
+    for i in range(1, n + 1):
         temp = min(matrix[s][i] + matrix[i][a] + matrix[i][b], answer)
         answer = temp
+
     return answer
 
 
