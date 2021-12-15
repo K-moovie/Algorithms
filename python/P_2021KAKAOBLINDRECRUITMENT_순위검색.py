@@ -145,7 +145,7 @@ def solution(info, query):
         else:
             answer.append(len(dic[keys]) - bisect_left(dic[keys], int(score)))
 
-    return answer;
+    return answer
 
 
 if __name__ == '__main__':
