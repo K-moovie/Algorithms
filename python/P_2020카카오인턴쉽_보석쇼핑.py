@@ -57,7 +57,36 @@ Contents:
 
 
 def solution(gems):
-    pass
+    answer = []
+    setlen = len(set(gems))
+    dic = {}
+
+    start = 0
+    end = 0
+    shortest = int(1e9)
+
+    while end < len(gems):
+
+        if gems[end] not in dic:
+            dic[gems[end]] = 1
+        else:
+            dic[gems[end]] += 1
+
+        end += 1
+        print(len(dic))
+        if len(dic) == setlen:
+            while start < end:
+                if dic[gems[start]] > 1:
+                    dic[gems[start]] -= 1
+                    start += 1
+                elif end - start < shortest:
+                    shortest = end - start
+                    answer = [start + 1, end]
+                    break
+                else:
+                    break
+
+    return answer
 
 
 if __name__ == '__main__':
