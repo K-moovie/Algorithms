@@ -2,7 +2,7 @@
 Author: Kim YeongHwa
 Date: 2021-07-02
 Title: Programmers/2017 카카오코드 본선/단체사진 찍기
-Language: Java
+Language: Java 11
 Contents:
     문제 설명
     단체사진 찍기

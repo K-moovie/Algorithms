@@ -2,7 +2,7 @@
 Author: Kim YeongHwa
 Date: 2022-01-19
 Title: Programmers/해시/전화번호 목록
-Language: Python 3
+Language: Java 11
 Contents:
     전화번호 목록
     문제 설명
