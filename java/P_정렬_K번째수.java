@@ -29,19 +29,15 @@ Contents:
 
 
 */
+
 import java.util.*;
 import java.util.stream.*;
 
 class Solution {
     public int[] solution(int[] array, int[][] commands) {
         List<Integer> answer = new ArrayList<>();
-        for(int[] arr: commands){
-            int[] temp;
-            if(arr[0] == arr[1]) {
-                temp = Arrays.copyOfRange(array, arr[0] - 1, arr[0]);
-            } else {
-                temp = Arrays.copyOfRange(array, arr[0] - 1, arr[1]);
-            }
+        for(int[] arr: commands) {
+            int[] temp = Arrays.copyOfRange(array, arr[0] - 1, arr[1]);
             answer.add(Arrays.stream(temp).sorted().boxed().collect(Collectors.toList()).get(arr[2] - 1));
         }
         return answer.stream().mapToInt(Integer::intValue).toArray();
