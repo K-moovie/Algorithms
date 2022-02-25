@@ -35,16 +35,16 @@ class Solution {
         int answer = 0;
         Map<Integer, Integer> nums12 = new HashMap<>();
         Map<Integer, Integer> nums34 = new HashMap<>();
-        for(int i: nums1) {
-            for(int j: nums2) {
-                nums12.put(i+j, nums12.getOrDefault(i+j, 0) + 1);
+        for (int i : nums1) {
+            for (int j : nums2) {
+                nums12.put(i + j, nums12.getOrDefault(i + j, 0) + 1);
             }
         }
         // System.out.println(nums12.toString());
-        for(int k: nums3) {
-            for(int l: nums4) {
+        for (int k : nums3) {
+            for (int l : nums4) {
                 int temp = (k + l) * -1;
-                if(nums12.containsKey(temp)) {
+                if (nums12.containsKey(temp)) {
                     answer += nums12.get(temp);
                     // System.out.println(nums12.get(temp));
                 }
